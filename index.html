@@ -14,7 +14,7 @@
 :root{
   --bg:#F1F5EF; --surface:#FFFFFF; --surface-2:#E6ECE3; --ink:#1D2A31; --ink-2:#56666E; --line:#D3DCD0;
   --paper:#FFFFFF;
-  --d-jis:#DE5B3A; --d-ijt:#CF4C77; --d-nut:#C58E00; --d-bil:#138A79; --d-ijo:#6F52D1; --d-lang2:#2F6BB8; --d-logo:#2E8B8B;
+  --d-jis:#DE5B3A; --d-ijt:#CF4C77; --d-nut:#C58E00; --d-bil:#138A79; --d-ijo:#6F52D1; --d-lang2:#2F6BB8; --d-logo:#2E8B8B; --d-neyro:#5E8C2A;
   --good:#2A8752; --warn:#C08300; --bad:#C2443A;
   --accent:#2B5D84;
   --shadow:0 1px 2px rgba(29,42,49,.06),0 6px 18px rgba(29,42,49,.06);
@@ -24,7 +24,7 @@
     color-scheme:dark;
     --bg:#11171B; --surface:#1A2227; --surface-2:#232D33; --ink:#E8EEF0; --ink-2:#9AA9B0; --line:#2E3A41;
     --paper:#F3F4EE;
-    --d-jis:#F07D5F; --d-ijt:#EB7AA0; --d-nut:#EDBB3C; --d-bil:#3EBFA8; --d-ijo:#9E88F2; --d-lang2:#6FA3E8; --d-logo:#55BDBD;
+    --d-jis:#F07D5F; --d-ijt:#EB7AA0; --d-nut:#EDBB3C; --d-bil:#3EBFA8; --d-ijo:#9E88F2; --d-lang2:#6FA3E8; --d-logo:#55BDBD; --d-neyro:#8CC152;
     --good:#4DBB7B; --warn:#E3AE35; --bad:#EA6F63;
     --accent:#7FB3DA;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);
@@ -34,7 +34,7 @@
   color-scheme:dark;
   --bg:#11171B; --surface:#1A2227; --surface-2:#232D33; --ink:#E8EEF0; --ink-2:#9AA9B0; --line:#2E3A41;
   --paper:#F3F4EE;
-  --d-jis:#F07D5F; --d-ijt:#EB7AA0; --d-nut:#EDBB3C; --d-bil:#3EBFA8; --d-ijo:#9E88F2; --d-lang2:#6FA3E8; --d-logo:#55BDBD;
+  --d-jis:#F07D5F; --d-ijt:#EB7AA0; --d-nut:#EDBB3C; --d-bil:#3EBFA8; --d-ijo:#9E88F2; --d-lang2:#6FA3E8; --d-logo:#55BDBD; --d-neyro:#8CC152;
   --good:#4DBB7B; --warn:#E3AE35; --bad:#EA6F63;
   --accent:#7FB3DA;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);
@@ -155,6 +155,8 @@ input[type=text]{min-width:0}
 .phrase{font-family:"Fredoka","Nunito",sans-serif;font-weight:600;font-size:clamp(22px,4vw,30px);text-align:center;background:color-mix(in srgb,var(--c) 10%,var(--surface));border-radius:20px;padding:18px 20px;max-width:560px;margin:0 auto}
 .pad{width:100%;height:260px;border-radius:20px;background:var(--paper);border:2px solid var(--line);touch-action:none;display:block;cursor:crosshair}
 .pad.tall{height:340px}
+.pad.neyro{height:320px}
+.hint{text-align:center;margin:0 0 10px;font-weight:700;color:var(--ink-2)}
 .palette{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:12px}
 .sw{width:36px;height:36px;border-radius:50%;border:3px solid var(--surface);box-shadow:0 0 0 2px var(--line);cursor:pointer;padding:0}
 .sw[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink)}
@@ -300,7 +302,7 @@ const T={
 uz:{
   sub:'“Ilk qadam” asosidagi bog‘cha platformasi',child:'Bola',teacher:'Tarbiyachi',parent:'Ota-ona',group:'Guruh',kid:'Bola',
   hello:'Salom',whichGame:'Bugun qaysi o‘yinni o‘ynaymiz?',recommend:'Tavsiya',level:'-daraja',
-  noteStrip:'Har bir o‘yin bola javoblariga qarab osonlashadi yoki qiyinlashadi: ketma-ket 3 ta to‘g‘ri javob darajani oshiradi, 2 ta xato pasaytiradi. “Rus tili” va “Logoped” — dasturning 5 sohasiga qo‘shimcha bloklar.',
+  noteStrip:'Har bir o‘yin bola javoblariga qarab osonlashadi yoki qiyinlashadi: ketma-ket 3 ta to‘g‘ri javob darajani oshiradi, 2 ta xato pasaytiradi. “Rus tili”, “Logoped” va “Neyro” — dasturning 5 sohasiga qo‘shimcha bloklar.',
   emptyTitle:'Bu guruhda hali bola yo‘q',emptyText:'Tarbiyachi rejimiga o‘tib, bolalarni qo‘shing.',goTeacher:'Tarbiyachi rejimi',
   back:'← Orqaga',next:'Keyingisi →',finishBtn:'Yakunlash →',again:'Yana o‘ynash',otherGame:'Boshqa o‘yin',difficulty:'Qiyinlik',
   adultFor:'Kattalar uchun',didSay:(w)=>`Bola “<b>${w}</b>” deb aytdimi? Tinglab, belgilang.`,saidRight:'To‘g‘ri aytdi',struggled:'Qiynaldi',
@@ -357,11 +359,14 @@ uz:{
   inLang:{ru:'rus tilida',uz:'o‘zbek tilida'},dash:(a,b)=>`${a} — ${b}.`,
   face:'Bola yuzi',pic:'Rasm',
   gymStep:'Til gimnastikasi',breathStep:'Nafas',sylStep:'Bo‘g‘inlar',wordStep:'So‘zlar',phraseStep:'Tez aytish',
+  neyroTouch:'Ikkala ko‘rsatkich barmog‘ini yashil nuqtalarga qo‘y va bir vaqtda sariq nuqtagacha yur.',neyroMouse:'Avval chap yo‘lakni, keyin o‘ng yo‘lakni chiz.',
+  neyroOk:(l,r)=>`Barakalla! Chap ${l}% · o‘ng ${r}%.`,neyroNo:(l,r)=>`Chap ${l}% · o‘ng ${r}%. Sekinroq, ikkala qo‘l birga.`,neyroBoth:'Ikkala yo‘lakni ham yur.',
+  neyroDisc:'Shu chizmalar chop etish uchun PDF to‘plamda ham bor (14 ta chizma, 3 daraja). Mashqlar nevrolog bilan ishlashni almashtirmaydi.',
 },
 ru:{
   sub:'Платформа для детского сада на основе программы «Илк кадам»',child:'Ребёнок',teacher:'Воспитатель',parent:'Родитель',group:'Группа',kid:'Ребёнок',
   hello:'Привет',whichGame:'В какую игру поиграем сегодня?',recommend:'Совет',level:'-й уровень',
-  noteStrip:'Каждая игра подстраивается под ответы ребёнка: 3 правильных ответа подряд повышают уровень, 2 ошибки понижают. «Узбекский язык» и «Логопед» — дополнительные блоки к 5 областям программы.',
+  noteStrip:'Каждая игра подстраивается под ответы ребёнка: 3 правильных ответа подряд повышают уровень, 2 ошибки понижают. «Узбекский язык», «Логопед» и «Нейро» — дополнительные блоки к 5 областям программы.',
   emptyTitle:'В этой группе пока нет детей',emptyText:'Перейдите в режим воспитателя и добавьте детей.',goTeacher:'Режим воспитателя',
   back:'← Назад',next:'Дальше →',finishBtn:'Завершить →',again:'Играть ещё',otherGame:'Другая игра',difficulty:'Уровень',
   adultFor:'Для взрослого',didSay:(w)=>`Ребёнок сказал «<b>${w}</b>»? Послушайте и отметьте.`,saidRight:'Сказал правильно',struggled:'Затруднился',
@@ -416,6 +421,9 @@ ru:{
   inLang:{ru:'по-русски',uz:'по-узбекски'},dash:(a,b)=>`${a} — ${b}.`,
   face:'Лицо ребёнка',pic:'Картинка',
   gymStep:'Гимнастика',breathStep:'Дыхание',sylStep:'Слоги',wordStep:'Слова',phraseStep:'Чистоговорка',
+  neyroTouch:'Поставь оба указательных пальца на зелёные точки и одновременно веди их до жёлтых.',neyroMouse:'Сначала проведи левую дорожку, потом правую.',
+  neyroOk:(l,r)=>`Молодец! Левая ${l}% · правая ${r}%.`,neyroNo:(l,r)=>`Левая ${l}% · правая ${r}%. Медленнее, обе руки вместе.`,neyroBoth:'Пройди обе дорожки.',
+  neyroDisc:'Эти же схемы есть в печатном PDF-наборе (14 схем, 3 уровня). Упражнения не заменяют занятия с неврологом.',
 }};
 const t=k=>{const v=(T[S.lang]||T.uz)[k];return v===undefined?T.uz[k]:v};
 
@@ -428,6 +436,7 @@ const DOMAINS=[
   {id:'ijo',round:1,uz:{short:'Ijod',name:'Ijodiy rivojlanish',desc:'Rasm chizish va tasavvur'},ru:{short:'Творчество',name:'Творческое развитие',desc:'Рисуем и фантазируем'}},
   {id:'lang2',round:5,extra:true,uz:{short:'Rus tili',name:'Rus tili (qo‘shimcha blok)',desc:'So‘zlar, ranglar, sanash, odob so‘zlari'},ru:{short:'Узбекский язык',name:'Узбекский язык (дополнительный блок)',desc:'Слова, цвета, счёт, вежливые слова'}},
   {id:'logo',round:5,extra:true,uz:{short:'Logoped',name:'Logopedik mashqlar (qo‘shimcha blok)',desc:'Til gimnastikasi, nafas, tovushlar'},ru:{short:'Логопед',name:'Логопедические упражнения (дополнительный блок)',desc:'Гимнастика для языка, дыхание, звуки'}},
+  {id:'neyro',round:3,extra:true,uz:{short:'Neyro',name:'Ikki qo‘l mashqlari — neyrotrenajyor (qo‘shimcha blok)',desc:'Ikki qo‘l bilan bir vaqtda yo‘lak bo‘ylab yurish'},ru:{short:'Нейро',name:'Межполушарные дорожки — нейротренажёр (дополнительный блок)',desc:'Ведём дорожки двумя руками одновременно'}},
 ];
 const CORE=DOMAINS.filter(d=>!d.extra);
 const DOM=id=>DOMAINS.find(d=>d.id===id);
@@ -440,6 +449,7 @@ const ICON={
   ijo:'<svg viewBox="0 0 24 24"><path d="M14.5 3.5l6 6-8.5 8.5-6-6z"/><path d="M6 12c-2.2 0-3.2 1.6-3.2 3.6 0 1.5-.5 2.6-1.1 3.2 3.2.6 6.4-.5 7-3.3"/></svg>',
   lang2:'<svg viewBox="0 0 24 24"><text x="12" y="17.5" text-anchor="middle" font-size="13" font-weight="800" fill="currentColor" stroke="none" font-family="Nunito,Arial,sans-serif">Аа</text></svg>',
   logo:'<svg viewBox="0 0 24 24"><path d="M6 9.5a6 6 0 0 1 12 0v2a6 6 0 0 1-12 0z"/><path d="M9 20c1-2 5-2 6 0M12 15.5v2.5"/></svg>',
+  neyro:'<svg viewBox="0 0 24 24"><path d="M8.5 4.5c-4.5 3.5-4.5 11.5 0 15M15.5 4.5c4.5 3.5 4.5 11.5 0 15"/><path d="M12 4v16" stroke-dasharray="2.2 2.2"/></svg>',
 };
 const STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>';
 const SPK='<svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
@@ -462,8 +472,8 @@ uz:{
   SAFE:[{p:'Ko‘chani qaysi chiroqda kesib o‘tamiz?',o:[{h:'<span class="dot big" style="background:#D8483B"></span>',a:'Qizil'},{h:'<span class="dot big" style="background:#E9B200"></span>',a:'Sariq'},{h:'<span class="dot big" style="background:#3FA34D"></span>',a:'Yashil',ok:1}],x:'Faqat yashil chiroqda, kattalar bilan birga o‘tamiz.'},{p:'Ovqatdan oldin nima qilamiz?',o:[{h:'Qo‘limizni yuvamiz',ok:1},{h:'Multfilm ko‘ramiz'},{h:'Yuguramiz'}],t:1,x:'Ovqatdan oldin qo‘lni sovunlab yuvamiz.'},{p:'Qaysi nonushta foydaliroq?',o:[{h:'🥣 Bo‘tqa va sut',ok:1},{h:'🍬 Konfet'},{h:'🥤 Gazli ichimlik'}],t:1,x:'Bo‘tqa va sut kuch beradi.'},{p:'Begona odam shirinlik bersa, nima qilamiz?',o:[{h:'Olmaymiz, kattalarga aytamiz',ok:1},{h:'Olib, u bilan ketamiz'},{h:'Hech kimga aytmaymiz'}],t:1,x:'Begonadan narsa olmaymiz va darhol kattalarga aytamiz.'},{p:'Tishlarimizni kuniga necha marta yuvamiz?',o:[{h:'Ertalab va kechqurun',ok:1},{h:'Hech qachon'},{h:'Haftada bir marta'}],t:1,x:'Kuniga ikki marta: ertalab va uxlashdan oldin.'}],
   THEMES:['Oilangni chiz','Sevimli hayvoningni chiz','Bahor kunini chiz','Uyingni chiz','Orzuingdagi mashinani chiz'],
   PRAISE:['Barakalla!','Zo‘r!','To‘g‘ri!','Ofarin!','Juda yaxshi!'],
-  SUGGEST:{jis:'kuniga 10 daqiqa harakatli o‘yin va mayda motorika uchun “Chiziq bo‘ylab” mashqi.',ijt:'kichik guruhda “Nima his qilyapti?” kartochkalari bilan suhbat va “Do‘kon” rolli o‘yini.',nut:'har kuni 5 ta so‘zning birinchi tovushini topish va kechqurun ertakni qayta aytib berish.',bil:'kundalik narsalarni sanash (qoshiq, tugma) va “Ko‘p-kam” o‘yini.',ijo:'erkin rasm chizish, keyin chizganini so‘z bilan tushuntirib berish; plastilindan shakl yasash.',lang2:'har kuni 3–4 ta yangi rus so‘zi rasm bilan va rus tilidagi qisqa qo‘shiq.',logo:'har kuni 5 daqiqa til gimnastikasi va “ishlanmoqda” tovush bo‘g‘inlari.'},
-  HOME:{jis:'Birga 10 daqiqa sayr qiling, yo‘ldagi zinapoyalarni birga sanang.',ijt:'Kechqurun “Bugun seni nima xursand qildi?” deb so‘rang va o‘zingiz ham javob bering.',nut:'Uydagi 5 ta narsani nomlang va har birining birinchi tovushini birga ayting.',bil:'Dasturxonga qoshiq va piyolalarni bola bilan birga sanab qo‘ying.',ijo:'Bugungi kundan rasm chizing va bola unga nom qo‘ysin.',lang2:'Uydagi 3 ta narsani rus tilida birga ayting: стол, стул, окно.',logo:'Oyna oldida 3 daqiqa til gimnastikasi: “Soatcha”, “Kurakcha”, “Otcha”.'},
+  SUGGEST:{jis:'kuniga 10 daqiqa harakatli o‘yin va mayda motorika uchun “Chiziq bo‘ylab” mashqi.',ijt:'kichik guruhda “Nima his qilyapti?” kartochkalari bilan suhbat va “Do‘kon” rolli o‘yini.',nut:'har kuni 5 ta so‘zning birinchi tovushini topish va kechqurun ertakni qayta aytib berish.',bil:'kundalik narsalarni sanash (qoshiq, tugma) va “Ko‘p-kam” o‘yini.',ijo:'erkin rasm chizish, keyin chizganini so‘z bilan tushuntirib berish; plastilindan shakl yasash.',lang2:'har kuni 3–4 ta yangi rus so‘zi rasm bilan va rus tilidagi qisqa qo‘shiq.',logo:'har kuni 5 daqiqa til gimnastikasi va “ishlanmoqda” tovush bo‘g‘inlari.',neyro:'kuniga 5 daqiqa ikki qo‘l bilan chizmalar: avval barmoq bilan, keyin ikkita flomaster bilan (PDF to‘plam yoki yog‘och doska).'},
+  HOME:{jis:'Birga 10 daqiqa sayr qiling, yo‘ldagi zinapoyalarni birga sanang.',ijt:'Kechqurun “Bugun seni nima xursand qildi?” deb so‘rang va o‘zingiz ham javob bering.',nut:'Uydagi 5 ta narsani nomlang va har birining birinchi tovushini birga ayting.',bil:'Dasturxonga qoshiq va piyolalarni bola bilan birga sanab qo‘ying.',ijo:'Bugungi kundan rasm chizing va bola unga nom qo‘ysin.',lang2:'Uydagi 3 ta narsani rus tilida birga ayting: стол, стул, окно.',logo:'Oyna oldida 3 daqiqa til gimnastikasi: “Soatcha”, “Kurakcha”, “Otcha”.',neyro:'Chop etilgan chizmada ikkala ko‘rsatkich barmog‘i bilan bir vaqtda 2 ta yo‘lak yuring, keyin flomaster bilan.'},
   GYM:[{n:'Tabassum',e:'😊',i:'Lablaringni tabassumga tort, tishlar ko‘rinsin. 5 soniya ushla.'},{n:'Naycha',e:'😗',i:'Lablaringni oldinga naycha qilib cho‘z. 5 soniya ushla.'},{n:'Soatcha',e:'⏰',i:'Og‘zingni och, til uchini soat mayatnigi kabi chapga-o‘ngga yurgiz.'},{n:'Kurakcha',e:'🥄',i:'Keng tilingni pastki labingga qo‘y. Tinch ushla.'},{n:'Piyolacha',e:'☕',i:'Keng tilingni ko‘tarib, chetlarini yuqoriga buk.'},{n:'Otcha',e:'🐴',i:'Ot tuyog‘i kabi tilingni chaqillat.'},{n:'Shirin murabbo',e:'🍯',i:'Yuqori labingni keng til bilan yuqoridan pastga yala.'},{n:'Qo‘ziqorin',e:'🍄',i:'Tilingni tanglayga yopishtirib ushla, qo‘ziqorin shlyapasi kabi.'},{n:'Arg‘imchoq',e:'🎠',i:'Tilni yuqori tishlar orqasiga, keyin pastki tishlar orqasiga.'},{n:'Bo‘yoqchi',e:'🖌️',i:'Tilingni tanglay bo‘ylab oldinga-orqaga yurgiz, mo‘yqalam kabi.'}],
   BREATH:[{n:'Shamni puflab o‘chir',e:'🕯️',i:'Burun bilan chuqur nafas ol, og‘iz bilan kaftingga sekin va uzoq pufla.'},{n:'Futbol',e:'⚽',i:'Paxta sharchasini stol ustida “darvoza”ga pufla.'},{n:'Sharcha',e:'🎈',i:'Nafas olganda qorin shishadi, chiqarganda pasayadi. 5 marta.'}],
   SOUNDS:[
@@ -488,8 +498,8 @@ ru:{
   SAFE:[{p:'На какой свет переходим дорогу?',o:[{h:'<span class="dot big" style="background:#D8483B"></span>',a:'Красный'},{h:'<span class="dot big" style="background:#E9B200"></span>',a:'Жёлтый'},{h:'<span class="dot big" style="background:#3FA34D"></span>',a:'Зелёный',ok:1}],x:'Только на зелёный и вместе со взрослыми.'},{p:'Что делаем перед едой?',o:[{h:'Моем руки',ok:1},{h:'Смотрим мультики'},{h:'Бегаем'}],t:1,x:'Перед едой моем руки с мылом.'},{p:'Какой завтрак полезнее?',o:[{h:'🥣 Каша и молоко',ok:1},{h:'🍬 Конфеты'},{h:'🥤 Газировка'}],t:1,x:'Каша и молоко дают силы.'},{p:'Незнакомый человек даёт конфету. Что делаем?',o:[{h:'Не берём, говорим взрослым',ok:1},{h:'Берём и идём с ним'},{h:'Никому не говорим'}],t:1,x:'Не берём ничего у незнакомых и сразу говорим взрослым.'},{p:'Сколько раз в день чистим зубы?',o:[{h:'Утром и вечером',ok:1},{h:'Никогда'},{h:'Раз в неделю'}],t:1,x:'Два раза в день: утром и перед сном.'}],
   THEMES:['Нарисуй свою семью','Нарисуй любимое животное','Нарисуй весенний день','Нарисуй свой дом','Нарисуй машину мечты'],
   PRAISE:['Молодец!','Здорово!','Верно!','Отлично!','Очень хорошо!'],
-  SUGGEST:{jis:'10 минут подвижных игр в день и «дорожки» для мелкой моторики.',ijt:'беседа по карточкам «Что он чувствует?» в малой группе и ролевая игра «Магазин».',nut:'каждый день находить первый звук в 5 словах и вечером пересказывать сказку.',bil:'считать бытовые предметы (ложки, пуговицы) и игра «Больше-меньше».',ijo:'свободное рисование, потом рассказать о рисунке словами; лепка из пластилина.',lang2:'каждый день 3–4 новых узбекских слова с картинкой и короткая песенка на узбекском.',logo:'каждый день 5 минут гимнастики для языка и слоги на звуки «в работе».'},
-  HOME:{jis:'Погуляйте вместе 10 минут, посчитайте ступеньки по дороге.',ijt:'Вечером спросите «Что тебя сегодня порадовало?» и ответьте сами.',nut:'Назовите 5 предметов дома и вместе скажите первый звук каждого.',bil:'Вместе с ребёнком посчитайте ложки и чашки на столе.',ijo:'Нарисуйте сегодняшний день, пусть ребёнок придумает название.',lang2:'Назовите 3 предмета дома по-узбекски: stol, stul, deraza.',logo:'3 минуты гимнастики для языка перед зеркалом: «Часики», «Лопатка», «Лошадка».'},
+  SUGGEST:{jis:'10 минут подвижных игр в день и «дорожки» для мелкой моторики.',ijt:'беседа по карточкам «Что он чувствует?» в малой группе и ролевая игра «Магазин».',nut:'каждый день находить первый звук в 5 словах и вечером пересказывать сказку.',bil:'считать бытовые предметы (ложки, пуговицы) и игра «Больше-меньше».',ijo:'свободное рисование, потом рассказать о рисунке словами; лепка из пластилина.',lang2:'каждый день 3–4 новых узбекских слова с картинкой и короткая песенка на узбекском.',logo:'каждый день 5 минут гимнастики для языка и слоги на звуки «в работе».',neyro:'каждый день 5 минут межполушарных дорожек: сначала пальцем, затем двумя фломастерами (PDF-набор или деревянная доска).'},
+  HOME:{jis:'Погуляйте вместе 10 минут, посчитайте ступеньки по дороге.',ijt:'Вечером спросите «Что тебя сегодня порадовало?» и ответьте сами.',nut:'Назовите 5 предметов дома и вместе скажите первый звук каждого.',bil:'Вместе с ребёнком посчитайте ложки и чашки на столе.',ijo:'Нарисуйте сегодняшний день, пусть ребёнок придумает название.',lang2:'Назовите 3 предмета дома по-узбекски: stol, stul, deraza.',logo:'3 минуты гимнастики для языка перед зеркалом: «Часики», «Лопатка», «Лошадка».',neyro:'На распечатанной схеме пройдите двумя указательными пальцами одновременно 2 дорожки, затем фломастерами.'},
   GYM:[{n:'Улыбка',e:'😊',i:'Растяни губы в улыбке, зубы видны. Держи 5 секунд.'},{n:'Трубочка',e:'😗',i:'Вытяни губы вперёд трубочкой. Держи 5 секунд.'},{n:'Часики',e:'⏰',i:'Открой рот, кончик языка двигай влево-вправо, как маятник.'},{n:'Лопатка',e:'🥄',i:'Положи широкий язык на нижнюю губу. Держи спокойно.'},{n:'Чашечка',e:'☕',i:'Подними широкий язык, загни края вверх.'},{n:'Лошадка',e:'🐴',i:'Пощёлкай языком, как копытца лошадки.'},{n:'Вкусное варенье',e:'🍯',i:'Облизни верхнюю губу широким языком сверху вниз.'},{n:'Грибок',e:'🍄',i:'Присоси язык к нёбу и держи, как шляпку грибка.'},{n:'Качели',e:'🎠',i:'Язык вверх за верхние зубы, потом вниз за нижние.'},{n:'Маляр',e:'🖌️',i:'Проведи языком по нёбу вперёд-назад, как кисточкой.'}],
   BREATH:[{n:'Задуй свечу',e:'🕯️',i:'Глубокий вдох носом, медленный долгий выдох ртом на ладошку.'},{n:'Футбол',e:'⚽',i:'Сдуй ватный шарик по столу в «ворота».'},{n:'Шарик',e:'🎈',i:'Вдох — живот надувается, выдох — сдувается. 5 раз.'}],
   SOUNDS:[
@@ -506,6 +516,27 @@ ru:{
 }};
 const cc=()=>C[S.lang]||C.uz;
 
+/* ---- neuro patterns (unit square, y down); mirrored for the left hand ---- */
+const lin=(a,b,n)=>Array.from({length:n},(_,i)=>a+(b-a)*i/(n-1));
+const polyd=(pts,step=0.01)=>{const out=[];for(let i=0;i<pts.length-1;i++){const [x0,y0]=pts[i],[x1,y1]=pts[i+1];const d=Math.hypot(x1-x0,y1-y0),n=Math.max(2,Math.floor(d/step));for(let j=0;j<n;j++){const q=j/n;out.push([x0+(x1-x0)*q,y0+(y1-y0)*q])}}out.push(pts[pts.length-1]);return out};
+const polar=(fr,n=400)=>lin(0,2*Math.PI,n).map(th=>{const r=fr(th),a=th-Math.PI/2;return [0.5+r*Math.cos(a),0.5+r*Math.sin(a)]});
+const PAT=[
+  {id:'circle',L:1,uz:'Doira',ru:'Круг',f:()=>lin(-Math.PI/2,1.5*Math.PI,240).map(a=>[0.5+0.4*Math.cos(a),0.5+0.4*Math.sin(a)])},
+  {id:'wave',L:1,uz:'To‘lqin',ru:'Волна',f:()=>lin(0,1,240).map(q=>[0.08+0.84*q,0.5+0.2*Math.sin(Math.PI*4*q)])},
+  {id:'zigzag',L:1,uz:'Zigzag',ru:'Зигзаг',f:()=>polyd(Array.from({length:7},(_,i)=>[0.1+i*0.8/6,i%2?0.85:0.15]))},
+  {id:'steps',L:1,uz:'Zinapoya',ru:'Лесенка',f:()=>{const p=[[0.1,0.9]];let x=0.1,y=0.9;for(let i=0;i<4;i++){x+=0.2;p.push([x,y]);y-=0.2;p.push([x,y])}return polyd(p)}},
+  {id:'spiral',L:1,uz:'Spiral',ru:'Спираль',f:()=>lin(0,1,400).map(q=>{const r=0.05+0.37*q,a=Math.PI*6*q;return [0.5+r*Math.cos(a),0.5+r*Math.sin(a)]})},
+  {id:'eight',L:2,uz:'Sakkizlik',ru:'Восьмёрка',f:()=>lin(Math.PI/2,Math.PI/2+2*Math.PI,300).map(a=>[0.5+0.3*Math.sin(2*a),0.5+0.42*Math.sin(a)])},
+  {id:'flower4',L:2,uz:'Gul (4 barg)',ru:'Цветок (4 лепестка)',f:()=>polar(th=>0.42*Math.cos(2*th))},
+  {id:'square',L:2,uz:'Kvadrat labirint',ru:'Квадратный лабиринт',f:()=>polyd([[.08,.08],[.92,.08],[.92,.92],[.08,.92],[.08,.2],[.8,.2],[.8,.8],[.2,.8],[.2,.32],[.68,.32],[.68,.68],[.32,.68],[.32,.44],[.56,.44],[.56,.56]])},
+  {id:'cloud',L:2,uz:'Bulutcha',ru:'Облачко',f:()=>polar(th=>0.33+0.07*Math.abs(Math.cos(3*th)))},
+  {id:'loops',L:2,uz:'Prujina',ru:'Пружинка',f:()=>lin(0,6*Math.PI,400).map(th=>[0.17+0.035*th-0.13*Math.sin(th),0.5+0.13*Math.cos(th)])},
+  {id:'star',L:3,uz:'Yulduz',ru:'Звезда',f:()=>polyd(Array.from({length:6},(_,i)=>{const a=(-90+i*144)*Math.PI/180;return [0.5+0.42*Math.cos(a),0.5+0.42*Math.sin(a)]}))},
+  {id:'heart',L:3,uz:'Yurakcha',ru:'Сердечко',f:()=>lin(0,2*Math.PI,300).map(a=>{const x=16*Math.sin(a)**3,y=13*Math.cos(a)-5*Math.cos(2*a)-2*Math.cos(3*a)-Math.cos(4*a);return [0.5+x/16*0.4,0.5-(y+2.5)/14.5*0.4]})},
+  {id:'tri',L:3,uz:'Uchburchak spiral',ru:'Треугольная спираль',f:()=>{const p=[[0.1,0.85]];let x=0.1,y=0.85,h=0;for(const L of [0.8,0.8,0.68,0.56,0.44,0.32,0.2]){x+=L*Math.cos(h*Math.PI/180);y-=L*Math.sin(h*Math.PI/180);p.push([x,y]);h+=120}return polyd(p)}},
+  {id:'flower6',L:3,uz:'Gul (6 barg)',ru:'Цветок (6 лепестков)',f:()=>polar(th=>0.42*Math.abs(Math.cos(3*th)))},
+];
+
 /* ================= STATE & STORAGE ================= */
 const KEY='nihol.v1';
 let DB=null;
@@ -514,14 +545,15 @@ const S={role:'child',lang:'uz',group:null,kid:null,screen:'home',act:null,editK
 function newKid(name,groupId,age){const k={id:uid(),name,groupId,age:age||'5–6',s:{},lvl:{},streak:{},miss:{},stars:0,log:[],gallery:[],note:'',home:{},snd:{},sndStat:{}};DOMAINS.forEach(d=>{k.s[d.id]=50;k.lvl[d.id]=1;k.streak[d.id]=0;k.miss[d.id]=0});return k}
 function seed(){
   const g1={id:'g1',name:'Quyoncha',lang:'uz',age:'5–6'},g2={id:'g2',name:'Солнышко',lang:'ru',age:'5–6'};
-  const rows=[['Madina','g1',62,78,55,70,81,48,50],['Jasur','g1',85,48,60,74,52,66,40],['Sevara','g1',58,82,79,45,88,40,70],['Bobur','g1',77,61,36,66,49,72,35],['Oysha','g1',49,70,72,81,67,55,60],
-    ['Алина','g2',70,64,58,77,72,45,52],['Тимур','g2',88,42,50,60,47,30,38],['Камила','g2',60,80,83,55,86,62,74],['Артём','g2',75,58,40,69,53,50,33]];
+  const rows=[['Madina','g1',62,78,55,70,81,48,50,58],['Jasur','g1',85,48,60,74,52,66,40,72],['Sevara','g1',58,82,79,45,88,40,70,44],['Bobur','g1',77,61,36,66,49,72,35,61],['Oysha','g1',49,70,72,81,67,55,60,39],
+    ['Алина','g2',70,64,58,77,72,45,52,66],['Тимур','g2',88,42,50,60,47,30,38,55],['Камила','g2',60,80,83,55,86,62,74,48],['Артём','g2',75,58,40,69,53,50,33,70]];
   const kids=rows.map(r=>{const k=newKid(r[0],r[1],'5–6');DOMAINS.forEach((d,j)=>{const v=r[j+2];k.s[d.id]=v;k.lvl[d.id]=v<45?1:v<75?2:3});k.stars=Math.round(r.slice(2,7).reduce((a,b)=>a+b,0)/12);
     if(k.s.logo<45){const snd=r[1]==='g1'?['r','sh']:['r','l'];snd.forEach(s=>k.snd[s]='work')}
     return k});
   return {v:1,name:'Nihol',sample:true,groups:[g1,g2],kids};
 }
-function load(){try{const raw=localStorage.getItem(KEY);if(raw){const d=JSON.parse(raw);if(d&&d.v===1&&Array.isArray(d.groups))return d}}catch(e){}return seed()}
+function migrate(d){(d.kids||[]).forEach(k=>{k.snd=k.snd||{};k.sndStat=k.sndStat||{};k.home=k.home||{};k.gallery=k.gallery||[];k.log=k.log||[];DOMAINS.forEach(x=>{if(k.s[x.id]===undefined){k.s[x.id]=50;k.lvl[x.id]=1;k.streak[x.id]=0;k.miss[x.id]=0}})});return d}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw){const d=JSON.parse(raw);if(d&&d.v===1&&Array.isArray(d.groups))return migrate(d)}}catch(e){}return seed()}
 let saveT;
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){
   let trimmed=false;DB.kids.forEach(k=>{if(k.gallery.length){k.gallery=k.gallery.slice(0,2);trimmed=true}});
@@ -624,6 +656,12 @@ const GEN={
       return {label:t('l2polite'),prompt:t('l2politeQ')(p[src],inL),optClass:'txt',opts:shuffle([p,...op]).map(x=>({html:big(x[tg]),ok:x===p})),speakAfter:p[tg],speakLang:tg,explain:t('dash')(p[src],p[tg])}}
     return {kind:'say',label:t('l2say'),prompt:t('l2sayPrompt')(inL),speak:w[tg],speakLang:tg,stage:hero(w.e),word:w[tg],wordNote:w[src]};
   },
+  neyro(k){
+    const L=k.lvl.neyro,a=S.act;a.used=a.used||[];
+    let pool=PAT.filter(p=>p.L===L&&!a.used.includes(p.id));if(!pool.length)pool=PAT.filter(p=>p.L<=L&&!a.used.includes(p.id));if(!pool.length)pool=PAT;
+    const p=pick(pool);a.used.push(p.id);const nm=p[S.lang]||p.uz;
+    return {kind:'neyro',label:nm,prompt:nm,pat:p,hint:(navigator.maxTouchPoints>1)?t('neyroTouch'):t('neyroMouse')};
+  },
   logo(k,i){
     const c=cc(),L=k.lvl.logo;
     const work=c.SOUNDS.filter(s=>k.snd[s.id]==='work');
@@ -700,6 +738,7 @@ function actView(){
   else if(q.kind==='move'){body=`<div class="move"><div class="card">${q.card}</div><div class="timer" aria-hidden="true"><i style="--t:${q.secs}s"></i></div><p class="muted">${t('moveNote')(q.secs)}</p><button class="btn big" id="move-done">${t('didIt')}</button></div>`}
   else if(q.kind==='gym'){body=`<div class="gym">${q.cards.map(c=>`<div class="card"><span class="e">${c.e}</span><h3>${c.n}</h3><p>${c.i}</p></div>`).join('')}</div><div class="timer" aria-hidden="true"><i style="--t:${q.secs}s"></i></div><p class="muted" style="text-align:center">${t('gymDo')}</p>`+adultBox(q.adult,t('doneEx'),t('partEx'))+`<p class="disc">${t('logoDisc')}</p>`}
   else if(q.kind==='snd'){body=q.body+adultBox(q.adult,t('clearOk'),t('almost'))+`<p class="disc">${t('logoDisc')}</p>`}
+  else if(q.kind==='neyro'){body=`<p class="hint">${q.hint}</p><canvas class="pad neyro" id="pad" aria-label="${esc(q.prompt)}"></canvas><div class="row"><button class="btn ghost" id="pad-clear">${t('clear')}</button><button class="btn" id="neyro-check">${t('ready')}</button></div><p class="disc">${t('neyroDisc')}</p>`}
   else if(q.kind==='trace'){body=`<canvas class="pad" id="pad" aria-label="${t('tracePrompt')}"></canvas><div class="row"><button class="btn ghost" id="pad-clear">${t('clear')}</button><button class="btn" id="trace-check">${t('ready')}</button></div>`}
   else if(q.kind==='draw'){const cs=['#2B3A44','#E0603F','#E9B200','#3FA34D','#3A7BD5','#6F52D1','#CF4C77','#8A5A3C'];
     body=`<div class="palette">${cs.map((c,i)=>`<button class="sw" data-color="${c}" style="background:${c}" aria-label="${c}" aria-pressed="${i===0}"></button>`).join('')}<button class="sw eraser" data-color="eraser" aria-pressed="false">✕</button></div>
@@ -864,13 +903,43 @@ function setupPad(kind){
   };
 }
 
+function setupNeuroPad(pat){
+  const cv=$('#pad');if(!cv)return null;
+  const dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;
+  cv.width=w*dpr;cv.height=h*dpr;const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);ctx.lineCap='round';ctx.lineJoin='round';
+  const css=getComputedStyle(document.documentElement);
+  const gap=Math.max(18,w*0.06),s=Math.min((w-gap)/2-14,h-24);
+  const rect={L:{x:w/2-gap/2-s,y:(h-s)/2},R:{x:w/2+gap/2,y:(h-s)/2}};
+  const base=pat.f();
+  const guide={L:base.map(([x,y])=>({x:rect.L.x+(1-x)*s,y:rect.L.y+y*s})),R:base.map(([x,y])=>({x:rect.R.x+x*s,y:rect.R.y+y*s}))};
+  const user={L:[],R:[]},ptrs=new Map(),lw=Math.max(14,s*0.075);
+  const col={L:css.getPropertyValue('--d-neyro').trim()||'#5E8C2A',R:css.getPropertyValue('--d-lang2').trim()||'#2F6BB8'};
+  function paper(){ctx.fillStyle='#FFFFFF';ctx.fillRect(0,0,w,h);
+    ctx.save();ctx.setLineDash([4,8]);ctx.strokeStyle='#D3DCD0';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(w/2,8);ctx.lineTo(w/2,h-8);ctx.stroke();ctx.restore();
+    for(const side of ['L','R']){const g=guide[side];ctx.save();ctx.setLineDash([2,14]);ctx.strokeStyle='#9DB0BA';ctx.lineWidth=lw;ctx.beginPath();g.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();ctx.restore();
+      const a=g[0],b=g[g.length-1];ctx.fillStyle='#3FA34D';ctx.beginPath();ctx.arc(a.x,a.y,lw*.6,0,7);ctx.fill();ctx.fillStyle='#E9B200';ctx.beginPath();ctx.arc(b.x,b.y,lw*.4,0,7);ctx.fill()}}
+  paper();
+  const pos=e=>{const r=cv.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top}};
+  cv.addEventListener('pointerdown',e=>{const p=pos(e),side=p.x<w/2?'L':'R';ptrs.set(e.pointerId,{side,last:p});try{cv.setPointerCapture(e.pointerId)}catch(_){}user[side].push(p);ctx.fillStyle=col[side];ctx.beginPath();ctx.arc(p.x,p.y,lw*.3,0,7);ctx.fill()});
+  cv.addEventListener('pointermove',e=>{const st=ptrs.get(e.pointerId);if(!st)return;const p=pos(e);ctx.strokeStyle=col[st.side];ctx.lineWidth=lw*.6;ctx.beginPath();ctx.moveTo(st.last.x,st.last.y);ctx.lineTo(p.x,p.y);ctx.stroke();user[st.side].push(p);st.last=p});
+  const up=e=>ptrs.delete(e.pointerId);cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+  return {
+    clear(){user.L=[];user.R=[];paper()},
+    count(){return user.L.length+user.R.length},
+    score(){const near=(a,b,r)=>(a.x-b.x)**2+(a.y-b.y)**2<r*r;const res={};
+      for(const side of ['L','R']){const g=guide[side],u=user[side];if(!u.length){res[side]={cov:0,acc:0};continue}
+        const cov=g.filter(p=>u.some(q=>near(p,q,s*.09))).length/g.length;const acc=u.filter(q=>g.some(p=>near(p,q,s*.11))).length/u.length;res[side]={cov,acc}}
+      return res},
+  };
+}
+
 /* ================= EXPORT / IMPORT ================= */
 function exportData(){
   const blob=new Blob([JSON.stringify(DB)],{type:'application/json'});const url=URL.createObjectURL(blob);
   const a=document.createElement('a');a.href=url;a.download=`${(DB.name||'nihol').toLowerCase()}-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
 }
 function importData(file){
-  const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||d.v!==1||!Array.isArray(d.groups)||!Array.isArray(d.kids))throw 0;DB=d;S.group=null;S.kid=null;save();toast(t('imported'));render()}catch(e){toast(t('importBad'))}};r.readAsText(file);
+  const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||d.v!==1||!Array.isArray(d.groups)||!Array.isArray(d.kids))throw 0;DB=migrate(d);S.group=null;S.kid=null;save();toast(t('imported'));render()}catch(e){toast(t('importBad'))}};r.readAsText(file);
 }
 
 /* ================= BINDING ================= */
@@ -896,6 +965,14 @@ function bind(){
       so.onclick=()=>{lock();finish(true,null,q.kind==='say'?t('sayOk'):q.kind==='gym'?t('gymOk'):t('sndOk')(q.snd.ch))};
       sn.onclick=()=>{lock();finish(false,null,q.kind==='say'?t('sayNo')(q.word):q.kind==='gym'?'':t('sndNo')(q.snd.ch))}}
     on('#move-done','onclick',()=>{$('#move-done').disabled=true;finish(true,null,t('moveOk'))});
+    if(q.kind==='neyro'){
+      const pad=setupNeuroPad(q.pat);
+      on('#pad-clear','onclick',()=>pad.clear());
+      on('#neyro-check','onclick',()=>{const fb=$('#fb');const r=pad.score();
+        if(pad.count()<5||!r.L.cov||!r.R.cov){fb.textContent=t('neyroBoth');fb.className='feedback';return}
+        const l=Math.round(r.L.cov*100),rr=Math.round(r.R.cov*100);const ok=r.L.cov>=.6&&r.R.cov>=.6&&r.L.acc>=.5&&r.R.acc>=.5;
+        $('#neyro-check').disabled=true;$('#pad-clear').disabled=true;finish(ok,null,ok?t('neyroOk')(l,rr):t('neyroNo')(l,rr))});
+    }
     if(q.kind==='trace'||q.kind==='draw'){
       const pad=setupPad(q.kind);
       on('#pad-clear','onclick',()=>pad.clear());
@@ -939,6 +1016,8 @@ function bind(){
 $('#group-select').onchange=e=>{S.group=e.target.value;S.kid=null;S.screen='home';S.editKid=false;S.confirm=null;const g=G();if(g)S.lang=g.lang;render()};
 $('#kid-select').onchange=e=>{S.kid=e.target.value;S.screen='home';S.editKid=false;S.confirm=null;render()};
 $$('#langs button').forEach(b=>b.onclick=()=>{S.lang=b.dataset.lang;if(S.screen==='act')S.screen='home';render()});
+let rsT,lastW=window.innerWidth;
+window.addEventListener('resize',()=>{clearTimeout(rsT);rsT=setTimeout(()=>{if(Math.abs(window.innerWidth-lastW)<40)return;lastW=window.innerWidth;if(S.role==='child'&&S.screen==='act'&&S.act&&S.act.q&&['neyro','trace','draw'].includes(S.act.q.kind)&&!S.act.answered)render()},300)});
 DB=load();ensureSel();S.lang=G().lang||'uz';
 render();
 })();
